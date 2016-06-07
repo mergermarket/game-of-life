@@ -2,6 +2,11 @@ package main
 
 import (
 	"strings"
+	"errors"
+)
+
+var(
+	ErrBadGrid = errors.New("Grids must be rectangular")
 )
 
 type Grid struct {
@@ -25,14 +30,17 @@ func NewGrid(width, height int) *Grid {
 	return g
 }
 
-func NewGridFromString(in string) *Grid {
+func NewGridFromString(in string) (*Grid, error) {
 	rows := strings.Split(strings.TrimSpace(in), "\n")
 	height := len(rows)
-	width := len(rows[0]) //todo: assuming all rows are same length, they wont be! return an error
+	width := len(rows[0])
 
 	g := NewGrid(width, height)
 
 	for rowNumber, row := range rows {
+		if len(row) != width{
+			return nil, ErrBadGrid
+		}
 		for colNumber, col := range row {
 			if col == '*' {
 				g.grid[rowNumber][colNumber] = true
@@ -40,7 +48,7 @@ func NewGridFromString(in string) *Grid {
 		}
 	}
 
-	return g
+	return g, nil
 }
 
 func (g *Grid) String() string {
