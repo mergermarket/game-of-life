@@ -38,6 +38,30 @@ func TestItCanCreateGridFromString(t *testing.T) {
 
 }
 
+func TestItCanOutputStringGrid(t *testing.T) {
+	input := `
+---
+---
+---
+`
+	grid, _ := NewGridFromString(input)
+
+	grid.grid[0][0] = true
+
+	expected := `
+*--
+---
+---
+`
+	if grid.String() != expected {
+		t.Log("Expected")
+		t.Log(expected)
+		t.Log("Got")
+		t.Log(grid.String())
+		t.Error("Grid was not outputted as expected")
+	}
+}
+
 func TestItRejectsNonRectangularGrids(t *testing.T) {
 	input := `
 -*-----
@@ -69,29 +93,5 @@ func TestItRejectsUnexpectedCharsInGrids(t *testing.T) {
 
 	if err != ErrBadGridChar {
 		t.Error("Expected", ErrBadGridChar, "but got", err)
-	}
-}
-
-func TestItCanOutputStringGrid(t *testing.T) {
-	input := `
----
----
----
-`
-	grid, _ := NewGridFromString(input)
-
-	grid.grid[0][0] = true
-
-	expected := `
-*--
----
----
-`
-	if grid.String() != expected {
-		t.Log("Expected")
-		t.Log(expected)
-		t.Log("Got")
-		t.Log(grid.String())
-		t.Error("Grid was not outputted as expected")
 	}
 }
