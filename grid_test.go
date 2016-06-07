@@ -62,6 +62,30 @@ func TestItCanOutputStringGrid(t *testing.T) {
 	}
 }
 
+func TestFewerThanTwoLiveCellsDiesOnGeneration(t *testing.T) {
+	input := `
+---
+-*-
+---
+`
+	grid, _ := NewGridFromString(input)
+
+	grid.Step()
+
+	expected := `
+---
+---
+---
+`
+	if grid.String() != expected {
+		t.Log("Expected")
+		t.Log(expected)
+		t.Log("Got")
+		t.Log(grid.String())
+		t.Error("Grid was not outputted as expected")
+	}
+}
+
 func TestItRejectsNonRectangularGrids(t *testing.T) {
 	input := `
 -*-----

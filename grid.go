@@ -56,6 +56,10 @@ func NewGridFromString(in string) (*Grid, error) {
 	return g, nil
 }
 
+func (g *Grid) Step() {
+	//todo
+}
+
 func (g *Grid) String() string {
 	var out string
 
