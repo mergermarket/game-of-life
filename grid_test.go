@@ -38,7 +38,7 @@ func TestItCanCreateGridFromString(t *testing.T) {
 
 }
 
-func TestItRejectsNonRectangularGrids(t *testing.T){
+func TestItRejectsNonRectangularGrids(t *testing.T) {
 	input := `
 -*-----
 ---
@@ -46,8 +46,29 @@ func TestItRejectsNonRectangularGrids(t *testing.T){
 `
 	_, err := NewGridFromString(input)
 
-	if err == nil{
+	if err == nil {
 		t.Error("Expected an error")
+	}
+
+	if err != ErrBadGridShape {
+		t.Error("Expected", ErrBadGridShape, "but got", err)
+	}
+}
+
+func TestItRejectsUnexpectedCharsInGrids(t *testing.T) {
+	input := `
+---
+-2-
+---
+`
+	_, err := NewGridFromString(input)
+
+	if err == nil {
+		t.Error("Expected an error")
+	}
+
+	if err != ErrBadGridChar {
+		t.Error("Expected", ErrBadGridChar, "but got", err)
 	}
 }
 

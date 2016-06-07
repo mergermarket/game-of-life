@@ -1,12 +1,13 @@
 package main
 
 import (
-	"strings"
 	"errors"
+	"strings"
 )
 
-var(
-	ErrBadGrid = errors.New("Grids must be rectangular")
+var (
+	ErrBadGridShape = errors.New("Grids must be rectangular")
+	ErrBadGridChar  = errors.New("Characters in grid must either be - or *")
 )
 
 type Grid struct {
@@ -38,12 +39,16 @@ func NewGridFromString(in string) (*Grid, error) {
 	g := NewGrid(width, height)
 
 	for rowNumber, row := range rows {
-		if len(row) != width{
-			return nil, ErrBadGrid
+		if len(row) != width {
+			return nil, ErrBadGridShape
 		}
 		for colNumber, col := range row {
 			if col == '*' {
 				g.grid[rowNumber][colNumber] = true
+			} else if col == '-' {
+				g.grid[rowNumber][colNumber] = false
+			} else {
+				return nil, ErrBadGridChar
 			}
 		}
 	}
@@ -54,16 +59,16 @@ func NewGridFromString(in string) (*Grid, error) {
 func (g *Grid) String() string {
 	var out string
 
-	for i, _ := range g.grid{
-		out +="\n"
-		for _, y := range g.grid[i]{
-			if y==true{
+	for i, _ := range g.grid {
+		out += "\n"
+		for _, y := range g.grid[i] {
+			if y == true {
 				out += "*"
-			}else{
-				out +="-"
+			} else {
+				out += "-"
 			}
 		}
 	}
-	out +="\n"
+	out += "\n"
 	return out
 }
