@@ -40,7 +40,7 @@ func TestItCanCreateGridFromString(t *testing.T){
 
 func TestItCanOutputStringGrid(t *testing.T){
 	input := `
--*-
+---
 ---
 ---
 `
@@ -49,7 +49,7 @@ func TestItCanOutputStringGrid(t *testing.T){
 	grid.grid[0][0] = true
 
 	expected := `
-**-
+*--
 ---
 ---
 `
