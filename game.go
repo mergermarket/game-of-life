@@ -50,20 +50,6 @@ func NewGameFromString(in string) (*Game, error) {
 	return g, nil
 }
 
-func totalLivingCells(grid [][]bool) int {
-	total := 0
-
-	for i, _ := range grid {
-		for _, y := range grid[i] {
-			if y {
-				total++
-			}
-		}
-	}
-
-	return total
-}
-
 func (g *Game) Step() {
 	originalGrid := newGrid(g.height, g.width)
 	for i := range originalGrid {
