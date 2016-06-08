@@ -38,6 +38,29 @@ func TestItCanCreateGridFromString(t *testing.T) {
 
 }
 
+func TestItCanCreateGridFromStringAgain(t *testing.T) {
+	input := `
+*--
+-*-
+--*
+`
+	game, _ := NewGameFromString(input)
+
+	if game == nil {
+		t.Error("Expected a grid to be returned but got nil")
+	}
+	if !(game.grid[0][0] && game.grid[1][1] && game.grid[2][2]) {
+		t.Error("Expected grid item to be set to true but it wasnt", game.grid)
+	}
+
+	if game.grid[0][1] && game.grid[0][2] &&
+		game.grid[1][0] && game.grid[1][2] &&
+		game.grid[2][0] && game.grid[2][1] {
+		t.Error("Expected grid item to be set to false but it wasnt", game.grid)
+	}
+
+}
+
 func TestItCanOutputStringGrid(t *testing.T) {
 	input := `
 ---

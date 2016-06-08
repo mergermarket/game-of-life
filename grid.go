@@ -23,3 +23,41 @@ func newGrid(width, height int) grid {
 
 	return g
 }
+
+func liveNeighbors(x int, y int, g grid) int {
+	total := 0
+
+	if g.isAlive(x-1, y-1) {
+		total++
+	}
+
+	if g.isAlive(x, y-1) {
+		total++
+	}
+
+	if g.isAlive(x+1, y-1) {
+		total++
+	}
+
+	if g.isAlive(x-1, y) {
+		total++
+	}
+
+	if g.isAlive(x+1, y) {
+		total++
+	}
+
+	if g.isAlive(x-1, y+1) {
+		total++
+	}
+
+	if g.isAlive(x, y+1) {
+		total++
+	}
+
+	if g.isAlive(x+1, y+1) {
+		total++
+	}
+
+	return total
+}

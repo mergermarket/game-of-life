@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"strings"
-	"fmt"
 )
 
 var (
@@ -65,62 +64,20 @@ func totalLivingCells(grid [][]bool) int {
 	return total
 }
 
-func liveNeighbors(x int, y int, g grid) int {
-	total := 0
-
-	if g.isAlive(x-1, y-1) {
-		total++
-	}
-
-	if g.isAlive(x, y-1) {
-		total++
-	}
-
-	if g.isAlive(x+1, y-1) {
-		total++
-	}
-
-	if g.isAlive(x-1, y) {
-		total++
-	}
-
-	if g.isAlive(x+1, y) {
-		total++
-	}
-
-	if g.isAlive(x-1, y+1) {
-		total++
-	}
-
-	if g.isAlive(x, y+1) {
-		total++
-	}
-
-	if g.isAlive(x+1, y+1) {
-		total++
-	}
-
-	return total
-}
-
 func (g *Game) Step() {
-	originalGrid := g.grid
+	originalGrid := newGrid(g.height, g.width)
+	for i := range originalGrid {
+		copy(originalGrid[i], g.grid[i])
+	}
 
 	for i, _ := range originalGrid {
-		for j, alive := range originalGrid[i] {
-			if alive {
-				livecount := liveNeighbors(i, j, originalGrid)
-				fmt.Println(livecount, "i", i, "j", j)
-				if liveNeighbors(i, j, originalGrid) < 3 {
+		for j, _ := range originalGrid[i] {
+			if originalGrid[i][j] {
+				if liveNeighbors(i, j, originalGrid) < 2 {
 					g.grid[i][j] = false
 				}
 			}
 		}
-	}
-
-
-	if totalLivingCells(g.grid) < 2 {
-		g.grid = newGrid(g.width, g.height)
 	}
 }
 
