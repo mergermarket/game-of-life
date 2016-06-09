@@ -1,6 +1,6 @@
 # game of life
 
-[![GoDoc](https://godoc.org/github.com/mergermarket/game-of-life?status.svg)](https://godoc.org/github.com/mergermarket/game-of-life)
+[![GoDoc](https://godoc.org/github.com/mergermarket/game-of-life/game?status.svg)](https://godoc.org/github.com/mergermarket/game-of-life/game)
 
 ## instructions
 
