@@ -1,10 +1,12 @@
 # game of life
 
+[![GoDoc](https://godoc.org/github.com/mergermarket/game-of-life?status.svg)](https://godoc.org/github.com/mergermarket/game-of-life)
+
 ## instructions
 
 check out into `$GOPATH/src/mergermarket/game-of-life`
 
-`go test .`
+`go test ./...`
 
 ## Tentative goals
 
