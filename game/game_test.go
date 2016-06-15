@@ -159,18 +159,18 @@ func TestTwoByDiagonalTripleDiesExceptCenterCell(t *testing.T) {
 
 func TestCenterCellWith4NeighboursDies(t *testing.T) {
 	input := `
--*-
+*-*
 ***
--*-
+*-*
 `
 	game, _ := NewGameFromString(input)
 
 	game.Step()
 
 	expected := `
-***
 *-*
-***
+*-*
+*-*
 `
 	if game.String() != expected {
 		t.Log("Expected")
@@ -181,7 +181,7 @@ func TestCenterCellWith4NeighboursDies(t *testing.T) {
 	}
 }
 
-func TestDeadCenterCellWith3NeighboursRessurects(t *testing.T) {
+func TestDeadCenterCellWith3NeighboursResurrects(t *testing.T) {
 	input := `
 *-*
 ---

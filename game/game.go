@@ -12,7 +12,7 @@ var (
 
 type Game struct {
 	width, height int
-	grid          [][]bool
+	grid          grid
 }
 
 func NewGame(width, height int) *Game {
@@ -59,17 +59,19 @@ func (g *Game) Step() {
 	for i, _ := range originalGrid {
 		for j, _ := range originalGrid[i] {
 			neighbors := liveNeighbors(i, j, originalGrid)
-			if originalGrid[i][j] {
+			if originalGrid.isAlive(i, j) {
 				if neighbors < 2 || neighbors > 3 {
-					g.grid[i][j] = false
+					g.grid.killCell(i, j)
 				}
 
 			} else if neighbors == 3 {
-				g.grid[i][j] = true
+				g.grid.resurrectCell(i, j)
 			}
 		}
 	}
 }
+
+
 
 func (g *Game) String() string {
 	var out string

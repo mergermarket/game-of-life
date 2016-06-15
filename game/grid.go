@@ -14,6 +14,15 @@ func (g grid) isAlive(x int, y int) bool {
  return g[x][y]
 }
 
+func (g grid) killCell(x int, y int) {
+	g[x][y] = false
+}
+
+func (g grid) resurrectCell(x int, y int) {
+	g[x][y] = true
+}
+
+
 func newGrid(width, height int) grid {
 	g := make([][]bool, height)
 
