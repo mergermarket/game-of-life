@@ -51,27 +51,24 @@ func NewGameFromString(in string) (*Game, error) {
 }
 
 func (g *Game) Step() {
-	originalGrid := newGrid(g.height, g.width)
-	for i := range originalGrid {
-		copy(originalGrid[i], g.grid[i])
-	}
+	nextGrid := newGrid(g.height, g.width)
 
-	for i, _ := range originalGrid {
-		for j, _ := range originalGrid[i] {
-			neighbors := liveNeighbors(i, j, originalGrid)
-			if originalGrid.isAlive(i, j) {
+	for i, _ := range g.grid {
+		for j, _ := range g.grid[i] {
+			neighbors := liveNeighbors(i, j, g.grid)
+			nextGrid[i][j] = g.grid[i][j]
+			if g.grid.isAlive(i, j) {
 				if neighbors < 2 || neighbors > 3 {
-					g.grid.killCell(i, j)
+					nextGrid.killCell(i, j)
 				}
 
 			} else if neighbors == 3 {
-				g.grid.resurrectCell(i, j)
+				nextGrid.resurrectCell(i, j)
 			}
 		}
 	}
+	g.grid = nextGrid
 }
-
-
 
 func (g *Game) String() string {
 	var out string

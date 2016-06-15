@@ -99,3 +99,4 @@ func TestLiveNeighbors(t *testing.T) {
 		t.Error("Expected two live neighbours")
 	}
 }
+
