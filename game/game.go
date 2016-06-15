@@ -59,9 +59,11 @@ func (g *Game) Step() {
 	for i, _ := range originalGrid {
 		for j, _ := range originalGrid[i] {
 			if originalGrid[i][j] {
-				if liveNeighbors(i, j, originalGrid) < 2 {
+				neighbors := liveNeighbors(i, j, originalGrid)
+				if neighbors < 2 || neighbors > 3{
 					g.grid[i][j] = false
 				}
+
 			}
 		}
 	}
