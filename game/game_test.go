@@ -205,7 +205,6 @@ func TestDeadCenterCellWith3NeighboursResurrects(t *testing.T) {
 	}
 }
 
-
 func TestItRejectsNonRectangularGrids(t *testing.T) {
 	input := `
 -*-----

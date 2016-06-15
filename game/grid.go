@@ -3,15 +3,15 @@ package game
 type grid [][]bool
 
 func (g grid) isAlive(x int, y int) bool {
-  if x < 0 || y < 0 {
-    return false
-  }
+	if x < 0 || y < 0 {
+		return false
+	}
 
-  if x >= len(g) || y >= len(g[0]) {
-    return false
-  }
+	if x >= len(g) || y >= len(g[0]) {
+		return false
+	}
 
- return g[x][y]
+	return g[x][y]
 }
 
 func (g grid) killCell(x int, y int) {
@@ -21,7 +21,6 @@ func (g grid) killCell(x int, y int) {
 func (g grid) resurrectCell(x int, y int) {
 	g[x][y] = true
 }
-
 
 func newGrid(width, height int) grid {
 	g := make([][]bool, height)
