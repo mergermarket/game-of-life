@@ -168,9 +168,9 @@ func TestCenterCellWith4NeighboursDies(t *testing.T) {
 	game.Step()
 
 	expected := `
--*-
+***
 *-*
--*-
+***
 `
 	if game.String() != expected {
 		t.Log("Expected")
