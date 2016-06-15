@@ -181,6 +181,30 @@ func TestCenterCellWith4NeighboursDies(t *testing.T) {
 	}
 }
 
+func TestDeadCenterCellWith3NeighboursRessurects(t *testing.T) {
+	input := `
+*-*
+---
+*--
+`
+	game, _ := NewGameFromString(input)
+
+	game.Step()
+
+	expected := `
+---
+-*-
+---
+`
+	if game.String() != expected {
+		t.Log("Expected")
+		t.Log(expected)
+		t.Log("Got")
+		t.Log(game.String())
+		t.Error("Grid was not outputted as expected")
+	}
+}
+
 
 func TestItRejectsNonRectangularGrids(t *testing.T) {
 	input := `

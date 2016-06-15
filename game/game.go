@@ -7,7 +7,7 @@ import (
 
 var (
 	ErrBadGridShape = errors.New("Grids must be rectangular")
-	ErrBadGridChar  = errors.New("Characters in grid must either be - or *")
+	ErrBadGridChar = errors.New("Characters in grid must either be - or *")
 )
 
 type Game struct {
@@ -58,12 +58,14 @@ func (g *Game) Step() {
 
 	for i, _ := range originalGrid {
 		for j, _ := range originalGrid[i] {
+			neighbors := liveNeighbors(i, j, originalGrid)
 			if originalGrid[i][j] {
-				neighbors := liveNeighbors(i, j, originalGrid)
-				if neighbors < 2 || neighbors > 3{
+				if neighbors < 2 || neighbors > 3 {
 					g.grid[i][j] = false
 				}
 
+			} else if neighbors == 3 {
+				g.grid[i][j] = true
 			}
 		}
 	}
