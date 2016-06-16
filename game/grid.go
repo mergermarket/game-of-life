@@ -50,12 +50,12 @@ func (g grid) isAlive(cell cell) bool {
 	return g[x][y]
 }
 
-func (g grid) killCell(x int, y int) {
-	g[x][y] = false
+func (g grid) killCell(cell cell) {
+	g[cell.x][cell.y] = false
 }
 
-func (g grid) resurrectCell(x int, y int) {
-	g[x][y] = true
+func (g grid) resurrectCell(cell cell) {
+	g[cell.x][cell.y] = true
 }
 
 //todo: testme

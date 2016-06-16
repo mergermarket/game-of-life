@@ -29,16 +29,16 @@ func (g *Game) Step() {
 		nextGrid[x][y] = g.grid[x][y]
 
 		if g.grid.isAlive(cell) && neighbors < 2 {
-			nextGrid.killCell(x, y)
+			nextGrid.killCell(cell)
 		}
 		if g.grid.isAlive(cell) && neighbors > 3 {
-			nextGrid.killCell(x, y)
+			nextGrid.killCell(cell)
 		}
 		if g.grid.isAlive(cell) && (neighbors == 2 || neighbors == 3) {
 			// Survives
 		}
 		if !g.grid.isAlive(cell) && neighbors == 3 {
-			nextGrid.resurrectCell(x, y)
+			nextGrid.resurrectCell(cell)
 		}
 	}
 	g.grid = nextGrid
