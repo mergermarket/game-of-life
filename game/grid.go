@@ -1,6 +1,14 @@
 package game
 
-import "strings"
+import (
+	"strings"
+	"errors"
+)
+
+var (
+	ErrBadGridShape = errors.New("Grids must be rectangular")
+	ErrBadGridChar  = errors.New("Characters in grid must either be - or *")
+)
 
 type grid [][]bool
 

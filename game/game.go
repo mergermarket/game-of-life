@@ -1,14 +1,5 @@
 package game
 
-import (
-	"errors"
-)
-
-var (
-	ErrBadGridShape = errors.New("Grids must be rectangular")
-	ErrBadGridChar  = errors.New("Characters in grid must either be - or *")
-)
-
 type GameWorld interface {
 	Copy() GameWorld
 	GetCells() []cell
