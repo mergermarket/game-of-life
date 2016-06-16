@@ -18,7 +18,7 @@ func TestFewerThanTwoLiveCellsDiesOnGeneration(t *testing.T) {
 ---
 ---
 `
-	result := game.grid.String()
+	result := game.world.String()
 	if result != expected {
 		t.Log("Expected")
 		t.Log(expected)
@@ -44,7 +44,7 @@ func TestTwoByTwoSquareLivesToNextGeneration(t *testing.T) {
 -**
 -**
 `
-	result := game.grid.String()
+	result := game.world.String()
 	if result != expected {
 		t.Log("Expected")
 		t.Log(expected)
@@ -70,7 +70,7 @@ func TestTwoByDiagonalTripleDiesExceptCenterCell(t *testing.T) {
 -*-
 ---
 `
-	result := game.grid.String()
+	result := game.world.String()
 	if result != expected {
 		t.Log("Expected")
 		t.Log(expected)
@@ -96,7 +96,7 @@ func TestCenterCellWith4NeighboursDies(t *testing.T) {
 *-*
 *-*
 `
-	result := game.grid.String()
+	result := game.world.String()
 	if result != expected {
 		t.Log("Expected")
 		t.Log(expected)
@@ -122,7 +122,7 @@ func TestDeadCenterCellWith3NeighboursResurrects(t *testing.T) {
 -*-
 ---
 `
-	result := game.grid.String()
+	result := game.world.String()
 	if result != expected {
 		t.Log("Expected")
 		t.Log(expected)

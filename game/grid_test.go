@@ -35,8 +35,8 @@ func TestItCanCreateGridFromStringAgain(t *testing.T) {
 	}
 
 	if grid[0][1] && grid[0][2] &&
-	grid[1][0] && grid[1][2] &&
-	grid[2][0] && grid[2][1] {
+		grid[1][0] && grid[1][2] &&
+		grid[2][0] && grid[2][1] {
 		t.Error("Expected grid item to be set to false but it wasnt", grid)
 	}
 }
@@ -104,7 +104,7 @@ func TestIsAlive(t *testing.T) {
 
 	grid[1][1] = true
 
-	if !grid.isAlive(cell{1, 1}) {
+	if !grid.IsAlive(cell{1, 1}) {
 		t.Error("Expected grid to be alive here")
 	}
 }
@@ -112,11 +112,11 @@ func TestIsAlive(t *testing.T) {
 func TestNegativeIndexIsDead(t *testing.T) {
 	grid := newGrid(3, 3)
 
-	if grid.isAlive(cell{-1, 1}) {
+	if grid.IsAlive(cell{-1, 1}) {
 		t.Error("Expected grid to be dead here")
 	}
 
-	if grid.isAlive(cell{1, -1}) {
+	if grid.IsAlive(cell{1, -1}) {
 		t.Error("Expected grid to be dead here")
 	}
 }
@@ -124,11 +124,11 @@ func TestNegativeIndexIsDead(t *testing.T) {
 func TestOutOfBoundsIndexIsDead(t *testing.T) {
 	grid := newGrid(3, 3)
 
-	if grid.isAlive(cell{2, 3}) {
+	if grid.IsAlive(cell{2, 3}) {
 		t.Error("Expected grid to be dead here")
 	}
 
-	if grid.isAlive(cell{3, 2}) {
+	if grid.IsAlive(cell{3, 2}) {
 		t.Error("Expected grid to be dead here")
 	}
 }
@@ -136,7 +136,7 @@ func TestOutOfBoundsIndexIsDead(t *testing.T) {
 func TestLiveNeighborsNone(t *testing.T) {
 	g := newGrid(1, 1)
 
-	if liveNeighbors(cell{0, 0}, g) != 0 {
+	if g.GetAliveNeighbours(cell{0, 0}) != 0 {
 		t.Error("Expected no live neighbours")
 	}
 }
@@ -147,16 +147,16 @@ func TestLiveNeighborsTwo(t *testing.T) {
 	g[2][2] = true
 	g[0][0] = true
 
-	if liveNeighbors(cell{1, 1}, g) != 2 {
+	if g.GetAliveNeighbours(cell{1, 1}) != 2 {
 		t.Error("Expected two live neighbours")
 	}
-	if liveNeighbors(cell{0, 0}, g) != 1 {
+	if g.GetAliveNeighbours(cell{0, 0}) != 1 {
 		t.Error("Expected one live neighbours")
 	}
-	if liveNeighbors(cell{2, 2}, g) != 1 {
+	if g.GetAliveNeighbours(cell{2, 2}) != 1 {
 		t.Error("Expected one live neighbours")
 	}
-	if liveNeighbors(cell{0, 2}, g) != 1 {
+	if g.GetAliveNeighbours(cell{0, 2}) != 1 {
 		t.Error("Expected one live neighbours")
 	}
 }
@@ -168,31 +168,31 @@ func TestLiveNeighbors(t *testing.T) {
 	g[1][2] = true
 	g[2][1] = true
 
-	if liveNeighbors(cell{0, 0}, g) != 2 {
+	if g.GetAliveNeighbours(cell{0, 0}) != 2 {
 		t.Error("Expected two live neighbours")
 	}
-	if liveNeighbors(cell{0, 1}, g) != 2 {
+	if g.GetAliveNeighbours(cell{0, 1}) != 2 {
 		t.Error("Expected two live neighbours")
 	}
-	if liveNeighbors(cell{0, 2}, g) != 2 {
+	if g.GetAliveNeighbours(cell{0, 2}) != 2 {
 		t.Error("Expected two live neighbours")
 	}
-	if liveNeighbors(cell{1, 0}, g) != 2 {
+	if g.GetAliveNeighbours(cell{1, 0}) != 2 {
 		t.Error("Expected two live neighbours")
 	}
-	if liveNeighbors(cell{1, 1}, g) != 4 {
+	if g.GetAliveNeighbours(cell{1, 1}) != 4 {
 		t.Error("Expected four live neighbours")
 	}
-	if liveNeighbors(cell{1, 2}, g) != 2 {
+	if g.GetAliveNeighbours(cell{1, 2}) != 2 {
 		t.Error("Expected two live neighbours")
 	}
-	if liveNeighbors(cell{2, 0}, g) != 2 {
+	if g.GetAliveNeighbours(cell{2, 0}) != 2 {
 		t.Error("Expected two live neighbours")
 	}
-	if liveNeighbors(cell{2, 1}, g) != 2 {
+	if g.GetAliveNeighbours(cell{2, 1}) != 2 {
 		t.Error("Expected two live neighbours")
 	}
-	if liveNeighbors(cell{2, 2}, g) != 2 {
+	if g.GetAliveNeighbours(cell{2, 2}) != 2 {
 		t.Error("Expected two live neighbours")
 	}
 }

@@ -8,7 +8,7 @@ type cell struct {
 	x, y int
 }
 
-func (c cell) splat() (x int, y int){
+func (c cell) splat() (x int, y int) {
 	return c.x, c.y
 }
 
@@ -37,7 +37,7 @@ func NewGridFromString(in string) (grid, error) {
 	return g, nil
 }
 
-func (g grid) isAlive(cell cell) bool {
+func (g grid) IsAlive(cell cell) bool {
 	x, y := cell.splat()
 	if x < 0 || y < 0 {
 		return false
@@ -50,16 +50,16 @@ func (g grid) isAlive(cell cell) bool {
 	return g[x][y]
 }
 
-func (g grid) killCell(cell cell) {
+func (g grid) KillCell(cell cell) {
 	g[cell.x][cell.y] = false
 }
 
-func (g grid) resurrectCell(cell cell) {
+func (g grid) ResurrectCell(cell cell) {
 	g[cell.x][cell.y] = true
 }
 
 //todo: testme
-func (g grid) getCells() []cell {
+func (g grid) GetCells() []cell {
 	var cells []cell
 
 	for x, _ := range g {
@@ -88,11 +88,11 @@ func (g grid) String() string {
 	return out
 }
 
-func (g grid) Copy() grid {
+func (g grid) Copy() GameWorld {
 	cpy := newGrid(len(g), len(g[0]))
 
-	for x, _ := range g{
-		for y, cell := range g[x]{
+	for x, _ := range g {
+		for y, cell := range g[x] {
 			cpy[x][y] = cell
 		}
 	}
@@ -109,39 +109,39 @@ func newGrid(width, height int) grid {
 	return g
 }
 
-func liveNeighbors(c cell, g grid) int {
+func (g grid) GetAliveNeighbours(c cell) int {
 	total := 0
 	x, y := c.splat()
 
-	if g.isAlive(cell{x-1, y-1}) {
+	if g.IsAlive(cell{x - 1, y - 1}) {
 		total++
 	}
 
-	if g.isAlive(cell{x, y-1}) {
+	if g.IsAlive(cell{x, y - 1}) {
 		total++
 	}
 
-	if g.isAlive(cell{x+1, y-1}) {
+	if g.IsAlive(cell{x + 1, y - 1}) {
 		total++
 	}
 
-	if g.isAlive(cell{x-1, y}) {
+	if g.IsAlive(cell{x - 1, y}) {
 		total++
 	}
 
-	if g.isAlive(cell{x+1, y}) {
+	if g.IsAlive(cell{x + 1, y}) {
 		total++
 	}
 
-	if g.isAlive(cell{x-1, y+1}) {
+	if g.IsAlive(cell{x - 1, y + 1}) {
 		total++
 	}
 
-	if g.isAlive(cell{x, y+1}) {
+	if g.IsAlive(cell{x, y + 1}) {
 		total++
 	}
 
-	if g.isAlive(cell{x+1, y+1}) {
+	if g.IsAlive(cell{x + 1, y + 1}) {
 		total++
 	}
 

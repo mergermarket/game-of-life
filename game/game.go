@@ -9,34 +9,44 @@ var (
 	ErrBadGridChar  = errors.New("Characters in grid must either be - or *")
 )
 
-type Game struct {
-	grid          grid
+type GameWorld interface {
+	Copy() GameWorld
+	GetCells() []cell
+	IsAlive(cell) bool
+	GetAliveNeighbours(cell) int
+	KillCell(cell)
+	ResurrectCell(cell)
+	String() string
 }
 
-func NewGame(grid grid) *Game {
+type Game struct {
+	world GameWorld
+}
+
+func NewGame(world GameWorld) *Game {
 	g := new(Game)
-	g.grid = grid
+	g.world = world
 	return g
 }
 
 func (g *Game) Step() {
-	nextGrid := g.grid.Copy()
+	nextGrid := g.world.Copy()
 
-	for _, cell := range g.grid.getCells() {
-		neighbors := liveNeighbors(cell, g.grid)
+	for _, cell := range g.world.GetCells() {
+		neighbors := g.world.GetAliveNeighbours(cell)
 
-		if g.grid.isAlive(cell) && neighbors < 2 {
-			nextGrid.killCell(cell)
+		if g.world.IsAlive(cell) && neighbors < 2 {
+			nextGrid.KillCell(cell)
 		}
-		if g.grid.isAlive(cell) && neighbors > 3 {
-			nextGrid.killCell(cell)
+		if g.world.IsAlive(cell) && neighbors > 3 {
+			nextGrid.KillCell(cell)
 		}
-		if g.grid.isAlive(cell) && (neighbors == 2 || neighbors == 3) {
+		if g.world.IsAlive(cell) && (neighbors == 2 || neighbors == 3) {
 			// Survives
 		}
-		if !g.grid.isAlive(cell) && neighbors == 3 {
-			nextGrid.resurrectCell(cell)
+		if !g.world.IsAlive(cell) && neighbors == 3 {
+			nextGrid.ResurrectCell(cell)
 		}
 	}
-	g.grid = nextGrid
+	g.world = nextGrid
 }
