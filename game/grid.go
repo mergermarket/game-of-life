@@ -8,6 +8,10 @@ type cell struct {
 	x, y int
 }
 
+func (c cell) splat() (x int, y int){
+	return c.x, c.y
+}
+
 func NewGridFromString(in string) (grid, error) {
 	rows := strings.Split(strings.TrimSpace(in), "\n")
 	height := len(rows)
@@ -99,7 +103,8 @@ func (g grid) cleanClone() grid{
 	return newGrid(width, height)
 }
 
-func liveNeighbors(x int, y int, g grid) int {
+func liveNeighbors(cell cell, g grid) int {
+	x, y := cell.splat()
 	total := 0
 
 	if g.isAlive(x-1, y-1) {

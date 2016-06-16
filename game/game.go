@@ -9,7 +9,6 @@ var (
 	ErrBadGridChar  = errors.New("Characters in grid must either be - or *")
 )
 
-
 type Game struct {
 	grid          grid
 }
@@ -26,7 +25,7 @@ func (g *Game) Step() {
 	for _, cell := range g.grid.getCells() {
 		x := cell.x
 		y := cell.y
-		neighbors := liveNeighbors(x, y, g.grid)
+		neighbors := liveNeighbors(cell, g.grid)
 		nextGrid[x][y] = g.grid[x][y]
 		if g.grid.isAlive(x, y) && neighbors < 2 {
 			nextGrid.killCell(x, y)

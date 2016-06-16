@@ -136,7 +136,7 @@ func TestOutOfBoundsIndexIsDead(t *testing.T) {
 func TestLiveNeighborsNone(t *testing.T) {
 	g := newGrid(1, 1)
 
-	if liveNeighbors(0, 0, g) != 0 {
+	if liveNeighbors(cell{0, 0}, g) != 0 {
 		t.Error("Expected no live neighbours")
 	}
 }
@@ -147,16 +147,16 @@ func TestLiveNeighborsTwo(t *testing.T) {
 	g[2][2] = true
 	g[0][0] = true
 
-	if liveNeighbors(1, 1, g) != 2 {
+	if liveNeighbors(cell{1, 1}, g) != 2 {
 		t.Error("Expected two live neighbours")
 	}
-	if liveNeighbors(0, 0, g) != 1 {
+	if liveNeighbors(cell{0, 0}, g) != 1 {
 		t.Error("Expected one live neighbours")
 	}
-	if liveNeighbors(2, 2, g) != 1 {
+	if liveNeighbors(cell{2, 2}, g) != 1 {
 		t.Error("Expected one live neighbours")
 	}
-	if liveNeighbors(0, 2, g) != 1 {
+	if liveNeighbors(cell{0, 2}, g) != 1 {
 		t.Error("Expected one live neighbours")
 	}
 }
@@ -168,31 +168,31 @@ func TestLiveNeighbors(t *testing.T) {
 	g[1][2] = true
 	g[2][1] = true
 
-	if liveNeighbors(0, 0, g) != 2 {
+	if liveNeighbors(cell{0, 0}, g) != 2 {
 		t.Error("Expected two live neighbours")
 	}
-	if liveNeighbors(0, 1, g) != 2 {
+	if liveNeighbors(cell{0, 1}, g) != 2 {
 		t.Error("Expected two live neighbours")
 	}
-	if liveNeighbors(0, 2, g) != 2 {
+	if liveNeighbors(cell{0, 2}, g) != 2 {
 		t.Error("Expected two live neighbours")
 	}
-	if liveNeighbors(1, 0, g) != 2 {
+	if liveNeighbors(cell{1, 0}, g) != 2 {
 		t.Error("Expected two live neighbours")
 	}
-	if liveNeighbors(1, 1, g) != 4 {
+	if liveNeighbors(cell{1, 1}, g) != 4 {
 		t.Error("Expected four live neighbours")
 	}
-	if liveNeighbors(1, 2, g) != 2 {
+	if liveNeighbors(cell{1, 2}, g) != 2 {
 		t.Error("Expected two live neighbours")
 	}
-	if liveNeighbors(2, 0, g) != 2 {
+	if liveNeighbors(cell{2, 0}, g) != 2 {
 		t.Error("Expected two live neighbours")
 	}
-	if liveNeighbors(2, 1, g) != 2 {
+	if liveNeighbors(cell{2, 1}, g) != 2 {
 		t.Error("Expected two live neighbours")
 	}
-	if liveNeighbors(2, 2, g) != 2 {
+	if liveNeighbors(cell{2, 2}, g) != 2 {
 		t.Error("Expected two live neighbours")
 	}
 }
