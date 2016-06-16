@@ -76,11 +76,11 @@ func TestItCanOutputStringGrid(t *testing.T) {
 ---
 ---
 `
-	if game.String() != expected {
+	if game.grid.String() != expected {
 		t.Log("Expected")
 		t.Log(expected)
 		t.Log("Got")
-		t.Log(game.String())
+		t.Log(game.grid.String())
 		t.Error("Grid was not outputted as expected")
 	}
 }
@@ -100,11 +100,12 @@ func TestFewerThanTwoLiveCellsDiesOnGeneration(t *testing.T) {
 ---
 ---
 `
-	if game.String() != expected {
+	result := game.grid.String()
+	if result != expected {
 		t.Log("Expected")
 		t.Log(expected)
 		t.Log("Got")
-		t.Log(game.String())
+		t.Log(result)
 		t.Error("Grid was not outputted as expected")
 	}
 }
@@ -124,11 +125,12 @@ func TestTwoByTwoSquareLivesToNextGeneration(t *testing.T) {
 -**
 -**
 `
-	if game.String() != expected {
+	result := game.grid.String()
+	if result != expected {
 		t.Log("Expected")
 		t.Log(expected)
 		t.Log("Got")
-		t.Log(game.String())
+		t.Log(result)
 		t.Error("Grid was not outputted as expected")
 	}
 }
@@ -148,11 +150,12 @@ func TestTwoByDiagonalTripleDiesExceptCenterCell(t *testing.T) {
 -*-
 ---
 `
-	if game.String() != expected {
+	result := game.grid.String()
+	if result != expected {
 		t.Log("Expected")
 		t.Log(expected)
 		t.Log("Got")
-		t.Log(game.String())
+		t.Log(result)
 		t.Error("Grid was not outputted as expected")
 	}
 }
@@ -172,11 +175,12 @@ func TestCenterCellWith4NeighboursDies(t *testing.T) {
 *-*
 *-*
 `
-	if game.String() != expected {
+	result := game.grid.String()
+	if result != expected {
 		t.Log("Expected")
 		t.Log(expected)
 		t.Log("Got")
-		t.Log(game.String())
+		t.Log(result)
 		t.Error("Grid was not outputted as expected")
 	}
 }
@@ -196,11 +200,12 @@ func TestDeadCenterCellWith3NeighboursResurrects(t *testing.T) {
 -*-
 ---
 `
-	if game.String() != expected {
+	result := game.grid.String()
+	if result != expected {
 		t.Log("Expected")
 		t.Log(expected)
 		t.Log("Got")
-		t.Log(game.String())
+		t.Log(result)
 		t.Error("Grid was not outputted as expected")
 	}
 }

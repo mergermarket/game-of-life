@@ -39,6 +39,23 @@ func (g grid) getCells() []cell {
 	return cells
 }
 
+func (g grid) String() string {
+	var out string
+
+	for i, _ := range g {
+		out += "\n"
+		for _, y := range g[i] {
+			if y == true {
+				out += "*"
+			} else {
+				out += "-"
+			}
+		}
+	}
+	out += "\n"
+	return out
+}
+
 func newGrid(width, height int) grid {
 	g := make([][]bool, height)
 

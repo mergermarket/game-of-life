@@ -73,20 +73,3 @@ func (g *Game) Step() {
 	}
 	g.grid = nextGrid
 }
-
-func (g *Game) String() string {
-	var out string
-
-	for i, _ := range g.grid {
-		out += "\n"
-		for _, y := range g.grid[i] {
-			if y == true {
-				out += "*"
-			} else {
-				out += "-"
-			}
-		}
-	}
-	out += "\n"
-	return out
-}
