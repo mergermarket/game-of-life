@@ -1,9 +1,36 @@
 package game
 
+import "strings"
+
 type grid [][]bool
 
 type cell struct {
 	x, y int
+}
+
+func NewGridFromString(in string) (grid, error) {
+	rows := strings.Split(strings.TrimSpace(in), "\n")
+	height := len(rows)
+	width := len(rows[0])
+
+	g := newGrid(width, height)
+
+	for rowNumber, row := range rows {
+		if len(row) != width {
+			return nil, ErrBadGridShape
+		}
+		for colNumber, col := range row {
+			if col == '*' {
+				g[rowNumber][colNumber] = true
+			} else if col == '-' {
+				g[rowNumber][colNumber] = false
+			} else {
+				return nil, ErrBadGridChar
+			}
+		}
+	}
+
+	return g, nil
 }
 
 func (g grid) isAlive(x int, y int) bool {
@@ -64,6 +91,12 @@ func newGrid(width, height int) grid {
 	}
 
 	return g
+}
+
+func (g grid) cleanClone() grid{
+	height := len(g)
+	width := len(g[0])
+	return newGrid(width, height)
 }
 
 func liveNeighbors(x int, y int, g grid) int {
