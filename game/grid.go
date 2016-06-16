@@ -88,6 +88,17 @@ func (g grid) String() string {
 	return out
 }
 
+func (g grid) Copy() grid {
+	cpy := newGrid(len(g), len(g[0]))
+
+	for x, _ := range g{
+		for y, cell := range g[x]{
+			cpy[x][y] = cell
+		}
+	}
+	return cpy
+}
+
 func newGrid(width, height int) grid {
 	g := make([][]bool, height)
 
@@ -96,12 +107,6 @@ func newGrid(width, height int) grid {
 	}
 
 	return g
-}
-
-func (g grid) cleanClone() grid{
-	height := len(g)
-	width := len(g[0])
-	return newGrid(width, height)
 }
 
 func liveNeighbors(c cell, g grid) int {

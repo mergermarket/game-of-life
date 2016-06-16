@@ -20,13 +20,10 @@ func NewGame(grid grid) *Game {
 }
 
 func (g *Game) Step() {
-	nextGrid := g.grid.cleanClone()
+	nextGrid := g.grid.Copy()
 
 	for _, cell := range g.grid.getCells() {
-		x := cell.x
-		y := cell.y
 		neighbors := liveNeighbors(cell, g.grid)
-		nextGrid[x][y] = g.grid[x][y]
 
 		if g.grid.isAlive(cell) && neighbors < 2 {
 			nextGrid.killCell(cell)
