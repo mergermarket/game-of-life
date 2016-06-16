@@ -15,29 +15,27 @@ type Game struct {
 }
 
 func NewGame(world GameWorld) *Game {
-	g := new(Game)
-	g.world = world
-	return g
+	return &Game{world}
 }
 
 func (g *Game) Step() {
-	nextGrid := g.world.Copy()
+	nextWorld := g.world.Copy()
 
 	for _, cell := range g.world.GetCells() {
 		neighbors := g.world.GetAliveNeighbours(cell)
 
 		if g.world.IsAlive(cell) && neighbors < 2 {
-			nextGrid.KillCell(cell)
+			nextWorld.KillCell(cell)
 		}
 		if g.world.IsAlive(cell) && neighbors > 3 {
-			nextGrid.KillCell(cell)
+			nextWorld.KillCell(cell)
 		}
 		if g.world.IsAlive(cell) && (neighbors == 2 || neighbors == 3) {
 			// Survives
 		}
 		if !g.world.IsAlive(cell) && neighbors == 3 {
-			nextGrid.ResurrectCell(cell)
+			nextWorld.ResurrectCell(cell)
 		}
 	}
-	g.world = nextGrid
+	g.world = nextWorld
 }
