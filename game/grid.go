@@ -2,6 +2,10 @@ package game
 
 type grid [][]bool
 
+type cell struct {
+	x, y int
+}
+
 func (g grid) isAlive(x int, y int) bool {
 	if x < 0 || y < 0 {
 		return false
@@ -20,6 +24,19 @@ func (g grid) killCell(x int, y int) {
 
 func (g grid) resurrectCell(x int, y int) {
 	g[x][y] = true
+}
+
+//todo: testme
+func (g grid) getCells() []cell {
+	var cells []cell
+
+	for x, _ := range g {
+		for y, _ := range g[x] {
+			cells = append(cells, cell{x, y})
+		}
+	}
+
+	return cells
 }
 
 func newGrid(width, height int) grid {
