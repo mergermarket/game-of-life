@@ -37,7 +37,8 @@ func NewGridFromString(in string) (grid, error) {
 	return g, nil
 }
 
-func (g grid) isAlive(x int, y int) bool {
+func (g grid) isAlive(cell cell) bool {
+	x, y := cell.splat()
 	if x < 0 || y < 0 {
 		return false
 	}
@@ -103,39 +104,39 @@ func (g grid) cleanClone() grid{
 	return newGrid(width, height)
 }
 
-func liveNeighbors(cell cell, g grid) int {
-	x, y := cell.splat()
+func liveNeighbors(c cell, g grid) int {
 	total := 0
+	x, y := c.splat()
 
-	if g.isAlive(x-1, y-1) {
+	if g.isAlive(cell{x-1, y-1}) {
 		total++
 	}
 
-	if g.isAlive(x, y-1) {
+	if g.isAlive(cell{x, y-1}) {
 		total++
 	}
 
-	if g.isAlive(x+1, y-1) {
+	if g.isAlive(cell{x+1, y-1}) {
 		total++
 	}
 
-	if g.isAlive(x-1, y) {
+	if g.isAlive(cell{x-1, y}) {
 		total++
 	}
 
-	if g.isAlive(x+1, y) {
+	if g.isAlive(cell{x+1, y}) {
 		total++
 	}
 
-	if g.isAlive(x-1, y+1) {
+	if g.isAlive(cell{x-1, y+1}) {
 		total++
 	}
 
-	if g.isAlive(x, y+1) {
+	if g.isAlive(cell{x, y+1}) {
 		total++
 	}
 
-	if g.isAlive(x+1, y+1) {
+	if g.isAlive(cell{x+1, y+1}) {
 		total++
 	}
 

@@ -104,7 +104,7 @@ func TestIsAlive(t *testing.T) {
 
 	grid[1][1] = true
 
-	if !grid.isAlive(1, 1) {
+	if !grid.isAlive(cell{1, 1}) {
 		t.Error("Expected grid to be alive here")
 	}
 }
@@ -112,11 +112,11 @@ func TestIsAlive(t *testing.T) {
 func TestNegativeIndexIsDead(t *testing.T) {
 	grid := newGrid(3, 3)
 
-	if grid.isAlive(-1, 1) {
+	if grid.isAlive(cell{-1, 1}) {
 		t.Error("Expected grid to be dead here")
 	}
 
-	if grid.isAlive(1, -1) {
+	if grid.isAlive(cell{1, -1}) {
 		t.Error("Expected grid to be dead here")
 	}
 }
@@ -124,11 +124,11 @@ func TestNegativeIndexIsDead(t *testing.T) {
 func TestOutOfBoundsIndexIsDead(t *testing.T) {
 	grid := newGrid(3, 3)
 
-	if grid.isAlive(2, 3) {
+	if grid.isAlive(cell{2, 3}) {
 		t.Error("Expected grid to be dead here")
 	}
 
-	if grid.isAlive(3, 2) {
+	if grid.isAlive(cell{3, 2}) {
 		t.Error("Expected grid to be dead here")
 	}
 }

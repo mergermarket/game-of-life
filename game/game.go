@@ -27,16 +27,17 @@ func (g *Game) Step() {
 		y := cell.y
 		neighbors := liveNeighbors(cell, g.grid)
 		nextGrid[x][y] = g.grid[x][y]
-		if g.grid.isAlive(x, y) && neighbors < 2 {
+
+		if g.grid.isAlive(cell) && neighbors < 2 {
 			nextGrid.killCell(x, y)
 		}
-		if g.grid.isAlive(x, y) && neighbors > 3 {
+		if g.grid.isAlive(cell) && neighbors > 3 {
 			nextGrid.killCell(x, y)
 		}
-		if g.grid.isAlive(x, y) && (neighbors == 2 || neighbors == 3) {
+		if g.grid.isAlive(cell) && (neighbors == 2 || neighbors == 3) {
 			// Survives
 		}
-		if !g.grid.isAlive(x, y) && neighbors == 3 {
+		if !g.grid.isAlive(cell) && neighbors == 3 {
 			nextGrid.resurrectCell(x, y)
 		}
 	}
