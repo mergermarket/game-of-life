@@ -12,7 +12,7 @@ import (
 func main() {
 
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	grid := game.NewGrid(100, 100)
+	grid := game.NewGrid(201, 201)
 
 	for x, _ := range grid {
 		for y, _ := range grid {
