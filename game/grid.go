@@ -1,8 +1,52 @@
 package game
 
+import (
+	"strings"
+	"errors"
+)
+
+var (
+	ErrBadGridShape = errors.New("Grids must be rectangular")
+	ErrBadGridChar  = errors.New("Characters in grid must either be - or *")
+)
+
 type grid [][]bool
 
-func (g grid) isAlive(x int, y int) bool {
+type cell struct {
+	x, y int
+}
+
+func (c cell) splat() (x int, y int) {
+	return c.x, c.y
+}
+
+func NewGridFromString(in string) (grid, error) {
+	rows := strings.Split(strings.TrimSpace(in), "\n")
+	height := len(rows)
+	width := len(rows[0])
+
+	g := newGrid(width, height)
+
+	for rowNumber, row := range rows {
+		if len(row) != width {
+			return nil, ErrBadGridShape
+		}
+		for colNumber, col := range row {
+			if col == '*' {
+				g[rowNumber][colNumber] = true
+			} else if col == '-' {
+				g[rowNumber][colNumber] = false
+			} else {
+				return nil, ErrBadGridChar
+			}
+		}
+	}
+
+	return g, nil
+}
+
+func (g grid) IsAlive(cell cell) bool {
+	x, y := cell.splat()
 	if x < 0 || y < 0 {
 		return false
 	}
@@ -14,12 +58,53 @@ func (g grid) isAlive(x int, y int) bool {
 	return g[x][y]
 }
 
-func (g grid) killCell(x int, y int) {
-	g[x][y] = false
+func (g grid) KillCell(cell cell) {
+	g[cell.x][cell.y] = false
 }
 
-func (g grid) resurrectCell(x int, y int) {
-	g[x][y] = true
+func (g grid) ResurrectCell(cell cell) {
+	g[cell.x][cell.y] = true
+}
+
+//todo: testme
+func (g grid) GetCells() []cell {
+	var cells []cell
+
+	for x, _ := range g {
+		for y, _ := range g[x] {
+			cells = append(cells, cell{x, y})
+		}
+	}
+
+	return cells
+}
+
+func (g grid) String() string {
+	var out string
+
+	for i, _ := range g {
+		out += "\n"
+		for _, y := range g[i] {
+			if y == true {
+				out += "*"
+			} else {
+				out += "-"
+			}
+		}
+	}
+	out += "\n"
+	return out
+}
+
+func (g grid) Copy() GameWorld {
+	cpy := newGrid(len(g), len(g[0]))
+
+	for x, _ := range g {
+		for y, cell := range g[x] {
+			cpy[x][y] = cell
+		}
+	}
+	return cpy
 }
 
 func newGrid(width, height int) grid {
@@ -32,38 +117,39 @@ func newGrid(width, height int) grid {
 	return g
 }
 
-func liveNeighbors(x int, y int, g grid) int {
+func (g grid) GetAliveNeighbours(c cell) int {
 	total := 0
+	x, y := c.splat()
 
-	if g.isAlive(x-1, y-1) {
+	if g.IsAlive(cell{x - 1, y - 1}) {
 		total++
 	}
 
-	if g.isAlive(x, y-1) {
+	if g.IsAlive(cell{x, y - 1}) {
 		total++
 	}
 
-	if g.isAlive(x+1, y-1) {
+	if g.IsAlive(cell{x + 1, y - 1}) {
 		total++
 	}
 
-	if g.isAlive(x-1, y) {
+	if g.IsAlive(cell{x - 1, y}) {
 		total++
 	}
 
-	if g.isAlive(x+1, y) {
+	if g.IsAlive(cell{x + 1, y}) {
 		total++
 	}
 
-	if g.isAlive(x-1, y+1) {
+	if g.IsAlive(cell{x - 1, y + 1}) {
 		total++
 	}
 
-	if g.isAlive(x, y+1) {
+	if g.IsAlive(cell{x, y + 1}) {
 		total++
 	}
 
-	if g.isAlive(x+1, y+1) {
+	if g.IsAlive(cell{x + 1, y + 1}) {
 		total++
 	}
 
