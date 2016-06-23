@@ -8,6 +8,7 @@ type GameWorld interface {
 	KillCell(cell)
 	ResurrectCell(cell)
 	String() string
+	ToGrid() [][]bool
 }
 
 type Game struct {
@@ -18,7 +19,7 @@ func NewGame(world GameWorld) *Game {
 	return &Game{world}
 }
 
-func (g *Game) Step() {
+func (g *Game) Step() [][]bool {
 	nextWorld := g.world.Copy()
 
 	for _, cell := range g.world.GetCells() {
@@ -38,4 +39,5 @@ func (g *Game) Step() {
 		}
 	}
 	g.world = nextWorld
+	return nextWorld.ToGrid()
 }

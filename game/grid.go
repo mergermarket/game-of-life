@@ -1,8 +1,8 @@
 package game
 
 import (
-	"strings"
 	"errors"
+	"strings"
 )
 
 var (
@@ -70,8 +70,8 @@ func (g grid) ResurrectCell(cell cell) {
 func (g grid) GetCells() []cell {
 	var cells []cell
 
-	for x, _ := range g {
-		for y, _ := range g[x] {
+	for x := range g {
+		for y := range g[x] {
 			cells = append(cells, cell{x, y})
 		}
 	}
@@ -82,7 +82,7 @@ func (g grid) GetCells() []cell {
 func (g grid) String() string {
 	var out string
 
-	for i, _ := range g {
+	for i := range g {
 		out += "\n"
 		for _, y := range g[i] {
 			if y == true {
@@ -99,7 +99,7 @@ func (g grid) String() string {
 func (g grid) Copy() GameWorld {
 	cpy := newGrid(len(g), len(g[0]))
 
-	for x, _ := range g {
+	for x := range g {
 		for y, cell := range g[x] {
 			cpy[x][y] = cell
 		}
@@ -154,4 +154,8 @@ func (g grid) GetAliveNeighbours(c cell) int {
 	}
 
 	return total
+}
+
+func (g grid) ToGrid() [][]bool {
+	return g
 }
