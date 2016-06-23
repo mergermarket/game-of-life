@@ -100,7 +100,7 @@ func TestItCanOutputStringGrid(t *testing.T) {
 }
 
 func TestIsAlive(t *testing.T) {
-	grid := newGrid(3, 3)
+	grid := NewGrid(3, 3)
 
 	grid[1][1] = true
 
@@ -110,7 +110,7 @@ func TestIsAlive(t *testing.T) {
 }
 
 func TestNegativeIndexIsDead(t *testing.T) {
-	grid := newGrid(3, 3)
+	grid := NewGrid(3, 3)
 
 	if grid.IsAlive(cell{-1, 1}) {
 		t.Error("Expected grid to be dead here")
@@ -122,7 +122,7 @@ func TestNegativeIndexIsDead(t *testing.T) {
 }
 
 func TestOutOfBoundsIndexIsDead(t *testing.T) {
-	grid := newGrid(3, 3)
+	grid := NewGrid(3, 3)
 
 	if grid.IsAlive(cell{2, 3}) {
 		t.Error("Expected grid to be dead here")
@@ -134,7 +134,7 @@ func TestOutOfBoundsIndexIsDead(t *testing.T) {
 }
 
 func TestLiveNeighborsNone(t *testing.T) {
-	g := newGrid(1, 1)
+	g := NewGrid(1, 1)
 
 	if g.GetAliveNeighbours(cell{0, 0}) != 0 {
 		t.Error("Expected no live neighbours")
@@ -142,7 +142,7 @@ func TestLiveNeighborsNone(t *testing.T) {
 }
 
 func TestLiveNeighborsTwo(t *testing.T) {
-	g := newGrid(3, 3)
+	g := NewGrid(3, 3)
 	g[1][1] = true
 	g[2][2] = true
 	g[0][0] = true
@@ -162,7 +162,7 @@ func TestLiveNeighborsTwo(t *testing.T) {
 }
 
 func TestLiveNeighbors(t *testing.T) {
-	g := newGrid(3, 3)
+	g := NewGrid(3, 3)
 	g[0][1] = true
 	g[1][0] = true
 	g[1][2] = true

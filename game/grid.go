@@ -25,7 +25,7 @@ func NewGridFromString(in string) (grid, error) {
 	height := len(rows)
 	width := len(rows[0])
 
-	g := newGrid(width, height)
+	g := NewGrid(width, height)
 
 	for rowNumber, row := range rows {
 		if len(row) != width {
@@ -97,7 +97,7 @@ func (g grid) String() string {
 }
 
 func (g grid) Copy() GameWorld {
-	cpy := newGrid(len(g), len(g[0]))
+	cpy := NewGrid(len(g), len(g[0]))
 
 	for x := range g {
 		for y, cell := range g[x] {
@@ -107,7 +107,7 @@ func (g grid) Copy() GameWorld {
 	return cpy
 }
 
-func newGrid(width, height int) grid {
+func NewGrid(width, height int) grid {
 	g := make([][]bool, height)
 
 	for i := range g {
