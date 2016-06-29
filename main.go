@@ -7,31 +7,29 @@ import (
 
 	"github.com/mergermarket/game-of-life/game"
 	"github.com/mergermarket/game-of-life/gif"
+	"github.com/mergermarket/game-of-life/web"
 )
 
-func main() {
+// UltimateGame is.
+type UltimateGame struct {
+}
 
+// WriteGrid is.
+func (u UltimateGame) WriteGrid(writer http.ResponseWriter) {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	grid := game.NewGrid(201, 201)
-
-	for x, _ := range grid {
-		for y, _ := range grid {
+	for x := range grid {
+		for y := range grid {
 			grid[x][y] = r.Int()%2 == 0
 		}
 	}
 
 	myAwesomeGame := game.NewGame(grid)
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-		// The "/" pattern matches everything, so we need to check
-		// that we're at the root here.
-		if req.URL.Path != "/" {
-			http.NotFound(w, req)
-			return
-		}
-		// fmt.Fprintf(w, "Welcome to the home page!")
-		gif.Lissajous(myAwesomeGame, w)
+	gif.WriteGrid(myAwesomeGame, writer)
+}
 
-	})
+func main() {
+	game := UltimateGame{}
+	mux := web.Server(game)
 	http.ListenAndServe(":8080", mux)
 }

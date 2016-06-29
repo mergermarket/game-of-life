@@ -18,7 +18,7 @@ const (
 	blackIndex = 1 // next color in palette”
 )
 
-func Lissajous(gg gridGetter, out io.Writer) {
+func WriteGrid(gg gridGetter, out io.Writer) {
 	const (
 		size    = 100 // image canvas covers [-size..+size]
 		nframes = 64  // number of animation frames
