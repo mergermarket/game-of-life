@@ -1,23 +1,17 @@
 package web
 
-import "net/http"
-
-// GameRenderer renders a game onto the supplied writer.
-type GameRenderer interface {
-	WriteGrid(writer http.ResponseWriter)
-}
+import (
+	"net/http"
+	"strconv"
+)
 
 // Server returns a HTTP handler which renders a game.
-func Server(render func(http.ResponseWriter)) http.Handler {
+func Server(render func(http.ResponseWriter, int)) http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-		// The "/" pattern matches everything, so we need to check
-		// that we're at the root here.
-		if req.URL.Path != "/" {
-			http.NotFound(w, req)
-			return
-		}
-		render(w)
+
+		size, _ := strconv.Atoi(req.URL.Query().Get("size"))
+		render(w, size)
 	})
 	return mux
 }

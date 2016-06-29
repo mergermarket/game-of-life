@@ -11,9 +11,9 @@ import (
 )
 
 // WriteGrid is.
-func WriteGrid(writer http.ResponseWriter) {
+func WriteGrid(writer http.ResponseWriter, size int) {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	grid := game.NewGrid(201, 201)
+	grid := game.NewGrid(size, size)
 	for x := range grid {
 		for y := range grid {
 			grid[x][y] = r.Int()%2 == 0
