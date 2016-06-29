@@ -1,12 +1,12 @@
 package main
 
 import (
-	"os"
+	"math/rand"
+	"net/http"
+	"time"
 
 	"github.com/mergermarket/game-of-life/game"
 	"github.com/mergermarket/game-of-life/gif"
-	"math/rand"
-	"time"
 )
 
 func main() {
@@ -21,5 +21,17 @@ func main() {
 	}
 
 	myAwesomeGame := game.NewGame(grid)
-	gif.Lissajous(myAwesomeGame, os.Stdout)
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+		// The "/" pattern matches everything, so we need to check
+		// that we're at the root here.
+		if req.URL.Path != "/" {
+			http.NotFound(w, req)
+			return
+		}
+		// fmt.Fprintf(w, "Welcome to the home page!")
+		gif.Lissajous(myAwesomeGame, w)
+
+	})
+	http.ListenAndServe(":8080", mux)
 }
