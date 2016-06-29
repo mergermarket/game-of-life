@@ -36,3 +36,19 @@ func TestSetsGridSizeAccordingToParam(t *testing.T) {
 		t.Error("Expected size to be 20 but got ", receivedSize)
 	}
 }
+
+func TestSetsDefaultSize(t *testing.T) {
+	var receivedSize int
+	mockRender := func(w http.ResponseWriter, size int) {
+		receivedSize = size
+	}
+	mux := Server(mockRender)
+	recorder := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/", nil)
+
+	mux.ServeHTTP(recorder, req)
+
+	if receivedSize != defaultGridSize {
+		t.Error("Expected size to be ", defaultGridSize, " but got ", receivedSize)
+	}
+}
