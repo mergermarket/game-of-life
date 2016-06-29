@@ -10,12 +10,8 @@ import (
 	"github.com/mergermarket/game-of-life/web"
 )
 
-// UltimateGame is.
-type UltimateGame struct {
-}
-
 // WriteGrid is.
-func (u UltimateGame) WriteGrid(writer http.ResponseWriter) {
+func WriteGrid(writer http.ResponseWriter) {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	grid := game.NewGrid(201, 201)
 	for x := range grid {
@@ -29,7 +25,6 @@ func (u UltimateGame) WriteGrid(writer http.ResponseWriter) {
 }
 
 func main() {
-	game := UltimateGame{}
-	mux := web.Server(game)
+	mux := web.Server(WriteGrid)
 	http.ListenAndServe(":8080", mux)
 }

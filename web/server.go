@@ -8,7 +8,7 @@ type GameRenderer interface {
 }
 
 // Server returns a HTTP handler which renders a game.
-func Server(renderer GameRenderer) http.Handler {
+func Server(render func(http.ResponseWriter)) http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
 		// The "/" pattern matches everything, so we need to check
@@ -17,7 +17,7 @@ func Server(renderer GameRenderer) http.Handler {
 			http.NotFound(w, req)
 			return
 		}
-		renderer.WriteGrid(w)
+		render(w)
 	})
 	return mux
 }
